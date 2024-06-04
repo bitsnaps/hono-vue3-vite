@@ -1,0 +1,25 @@
+{
+  "name": "hono-vue3-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.11.2",
+    "@hono/vite-dev-server": "^0.12.1",
+    "cross-env": "^7.0.3",
+    "hono": "^4.4.3",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.1",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
