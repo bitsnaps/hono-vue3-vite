@@ -14,8 +14,12 @@ if (!isProd) {
 }
 
 const app = new Hono()
-  .use('/assets/*', serveStatic({ root: isProd ? 'dist/' : './' }))
-  .get('/api', c => c.json( { count: c.req.queries('count')[0] * 2} ))
+  // .use('/assets/*', serveStatic({ root: isProd ? 'dist/' : './' }))
+  .use('/assets/*', serveStatic({ root: isProd ? 'dist/assets' : './' }))
+
+  .use('/dist/*', serveStatic({ root: 'dist/' }))
+
+  .get('/api', c => c.json( { count: c.req.query('count')! * 2} ))
   .get('/*', c => c.html(html))
 
 app.use("*", async (c, next) => {
