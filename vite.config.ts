@@ -1,6 +1,6 @@
 import { build, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import devServer from '@hono/vite-dev-server'
+import devServer, { defaultOptions } from '@hono/vite-dev-server'
 
 export default defineConfig({
   server: {
@@ -11,10 +11,10 @@ export default defineConfig({
   //   outDir: 'dist/'
   // },
   plugins: [
-    vue([]),
+    vue(),
     devServer({
         entry: "server.ts",
-        exclude: [
+        exclude: defaultOptions.exclude.concat([
           /.*\.tsx?($|\?)/,
           /.*\.vue$/,
           /.*\.(s?css|less)($|\?)/,
@@ -23,7 +23,7 @@ export default defineConfig({
           /^\/favicon\.ico$/,
           /^\/(public|assets|static)\/.+/,
           /^\/node_modules\/.*/
-        ],
+        ]),
         injectClientScript: false, // this option is buggy, disable it and inject the code manually
     })
   ],

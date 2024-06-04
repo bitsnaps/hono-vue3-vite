@@ -8,7 +8,7 @@ const count = ref(0)
 const makeRequest = () => {
   fetch(`/api?count=${count.value}`)
   .then(r => r.json())
-  .then(data => console.log(data))
+  .then(data => console.log(parseInt(data.count)))
   
 }
 </script>

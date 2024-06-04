@@ -15,13 +15,13 @@ if (!isProd) {
 
 const app = new Hono()
   .use('/assets/*', serveStatic({ root: isProd ? 'dist/' : './' }))
-  .get('/api', c => c.json( {count: c.req.queries('count')[0]} ))
+  .get('/api', c => c.json( { count: c.req.queries('count')[0] * 2} ))
   .get('/*', c => c.html(html))
 
-// app.use("*", async (c, next) => {
-//   c.res.headers.set("X-Powered-By", "Hono")
-//   await next()
-// })
+app.use("*", async (c, next) => {
+  c.res.headers.set("X-Powered-By", "Hono")
+  await next()
+})
 
 export default app
 
