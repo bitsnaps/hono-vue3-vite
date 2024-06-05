@@ -6,6 +6,7 @@ import { readFile } from 'node:fs/promises'
 const isProd = process.env['NODE_ENV'] === 'production'
 let html = await readFile(isProd ? 'dist/index.html' : 'index.html', 'utf8')
 
+console.log(`Running on prod? => ${isProd}`)
 
 if (!isProd) {
   html = html.replace('<head>', `
@@ -14,12 +15,11 @@ if (!isProd) {
 }
 
 const app = new Hono()
-  // .use('/assets/*', serveStatic({ root: isProd ? 'dist/' : './' }))
+  .use('/*', serveStatic({ root: isProd ? 'dist/' : './' }))
   .use('/assets/*', serveStatic({ root: isProd ? 'dist/assets' : './' }))
-
   .use('/dist/*', serveStatic({ root: 'dist/' }))
 
-  .get('/api', c => c.json( { count: c.req.query('count')! * 2} ))
+  .get('/api', c => c.json( { count: parseInt(c.req.query('count')!) * 2} ))
   .get('/*', c => c.html(html))
 
 app.use("*", async (c, next) => {
@@ -29,8 +29,9 @@ app.use("*", async (c, next) => {
 
 export default app
 
+
 if (isProd) {
-  serve({ ...app, port: process.env['PORT']?? 3000 }, info => {
+  serve({ ...app, port: process.env['PORT']? parseInt(process.env['PORT'], 10) : 3000 }, info => {
     console.log(`Listening on http://localhost:${info.port}`)
   })
 }

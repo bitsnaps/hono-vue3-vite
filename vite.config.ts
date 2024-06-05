@@ -1,11 +1,11 @@
 import { build, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import devServer, { defaultOptions } from '@hono/vite-dev-server'
-import { resolve } from 'path'
+// import { resolve } from 'path'
 
 export default defineConfig({
   server: {
-    port: process.env['PORT']?? 3000, // you can change it to your preferred port if needed
+    port: process.env['PORT']? parseInt(process.env['PORT'], 10) : 3000, // you can change it to your preferred port if needed
   },
   // This is the default
   build: {
@@ -15,7 +15,7 @@ export default defineConfig({
     //   entry: resolve(__dirname, 'lib/main.ts')
     // },    
       // rollupOptions: {
-          // input: ['server.ts'],
+          // input: ['./src/main.ts'],
           // output: {
           //     entryFileNames: 'public/main.js',
           //     chunkFileNames: 'public/assets/[name]-[hash].js',
@@ -30,7 +30,7 @@ export default defineConfig({
   plugins: [
     vue(),
     devServer({
-        entry: "server.ts",
+        entry: "./src/server.ts",
         exclude: defaultOptions.exclude.concat([
           /.*\.tsx?($|\?)/,
           /.*\.vue$/,

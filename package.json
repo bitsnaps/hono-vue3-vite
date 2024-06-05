@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview",
-    "start": "node --loader ts-node/esm server.ts"
+    "preview": "export NODE_ENV='production'; vite preview",
+    "start": "export NODE_ENV='production'; node --loader ts-node/esm --no-warnings ./src/server.ts",
+    "clean": "rm -rf ./dist",
+    "clean:all": "rm -rf ./dist; rm -rf ./node_modules"
   },
   "dependencies": {
     "@hono/node-server": "^1.11.2",
