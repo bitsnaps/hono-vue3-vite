@@ -168,7 +168,23 @@ const app = new Hono()
   })
 ```
 
-### 10. Troubleshooting:
+### 10. TypeScript Configuration:
+The only two options needed are: `esModuleInterop` and `ts-node/esm` set to `true` in `tsconfig.json` config file: 
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "esModuleInterop": true,
+    ...
+  },
+  "ts-node": {
+      "esm": true
+  },
+  ...
+}
+```
+
+### 11. Troubleshooting:
 
 In case you're experiencing this error:
 
