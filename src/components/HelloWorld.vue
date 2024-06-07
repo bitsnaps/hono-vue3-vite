@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useCounterStore } from '../store'
 
 defineProps<{ msg: string }>()
 
-const count = ref(0)
+
+const couterStore = useCounterStore()
+
 
 const makeRequest = () => {
-  fetch(`/api?count=${count.value}`)
+  fetch(`/api?count=${couterStore.count}`)
   .then(r => r.json())
-  .then(data => console.log(parseInt(data.count)))
+  .then(data => couterStore.count = parseInt(data.count))
   
 }
 </script>
@@ -17,8 +19,8 @@ const makeRequest = () => {
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="makeRequest">Request</button>
-    <button type="button" @click="count++">count is {{ count }}</button>
+    <button type="button" @click="makeRequest">Count x2</button>
+    <button type="button" @click="couterStore.increment">Count +2: {{ couterStore.doubleCount }}</button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
