@@ -22,6 +22,7 @@ const app = new Hono()
   .get('/api', c => c.json( { count: parseInt(c.req.query('count')!) * 2} ))
   .get('/*', c => c.html(html))
 
+// --- General Middleware ---
 app.use("*", async (c, next) => {
   c.res.headers.set("X-Powered-By", "Hono")
   await next()
@@ -32,6 +33,6 @@ export default app
 
 if (isProd) {
   serve({ ...app, port: process.env['PORT']? parseInt(process.env['PORT'], 10) : 3000 }, info => {
-    console.log(`Listening on http://localhost:${info.port}`)
+    console.log(`Listening on http://localhost:${info.port}\nUse Ctrl+C to stop the server`)
   })
 }

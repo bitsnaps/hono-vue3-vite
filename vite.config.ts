@@ -1,7 +1,7 @@
 import { build, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import devServer, { defaultOptions } from '@hono/vite-dev-server'
-// import { resolve } from 'path'
+import { resolve } from 'path'
 
 export default defineConfig({
   server: {
@@ -44,5 +44,9 @@ export default defineConfig({
         injectClientScript: false, // this option is buggy, disable it and inject the code manually
     })
   ],
-  
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },  
 })
